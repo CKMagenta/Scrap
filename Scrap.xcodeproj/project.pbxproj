@@ -12,6 +12,7 @@
 		8B561C981778264A00A88D59 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C921778230000A88D59 /* HTMLNode.m */; };
 		8B561C991778264A00A88D59 /* HTMLNode_FindChildren.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C931778230000A88D59 /* HTMLNode_FindChildren.m */; };
 		8B561C9A1778264A00A88D59 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C951778230000A88D59 /* HTMLParser.m */; };
+		8B561C9C17788C9400A88D59 /* box.html in Resources */ = {isa = PBXBuildFile; fileRef = 8B561C9B17788C9400A88D59 /* box.html */; };
 		8BB1714D1774A82700714B5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB1714C1774A82700714B5F /* Cocoa.framework */; };
 		8BB171571774A82700714B5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8BB171551774A82700714B5F /* InfoPlist.strings */; };
 		8BB171591774A82700714B5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB171581774A82700714B5F /* main.m */; };
@@ -32,6 +33,7 @@
 		8B561C941778230000A88D59 /* HTMLParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
 		8B561C951778230000A88D59 /* HTMLParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
 		8B561C961778250C00A88D59 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		8B561C9B17788C9400A88D59 /* box.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = box.html; sourceTree = "<group>"; };
 		8BB171491774A82700714B5F /* Scrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1714C1774A82700714B5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8BB1714F1774A82700714B5F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -118,6 +120,7 @@
 		8BB171521774A82700714B5F /* Scrap */ = {
 			isa = PBXGroup;
 			children = (
+				8B561C9B17788C9400A88D59 /* box.html */,
 				8B561C8F177822F000A88D59 /* HTMLParser */,
 				8BB1715E1774A82700714B5F /* CKAppDelegate.h */,
 				8BB1715F1774A82700714B5F /* CKAppDelegate.m */,
@@ -198,6 +201,7 @@
 				8BB171571774A82700714B5F /* InfoPlist.strings in Resources */,
 				8BB1715D1774A82700714B5F /* Credits.rtf in Resources */,
 				8BB171631774A82700714B5F /* MainMenu.xib in Resources */,
+				8B561C9C17788C9400A88D59 /* box.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
