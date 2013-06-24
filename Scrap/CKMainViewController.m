@@ -109,8 +109,6 @@
         received = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if( received == nil || [received length] < 1)
             return;
-        
-        NSURL* url = [connection currentRequest].URL;
         html = [html stringByAppendingString:received];
     } else {
         //AudioServicesPlayAlertSound(kSystemSoundID_UserPreferredAlert);
@@ -127,24 +125,40 @@
     
     NSURL* url = [connection currentRequest].URL;
     CKHTMLParser* parser = [CKHTMLParser parserWithURL:url andContent:html];
+
     NSString* title = [parser parseTitle];
     if( title == nil) {
-        
         title = [ NSString stringWithFormat:@"%@%@%@", @"http://", [url host], [url path] ];
     }
-    [htmlView setString:html];
-    
-    //NSLog(@"html : %@", html);
-    NSLog(@"title : %@", title);
     
     NSArray* images = [parser parseImageURLStrings];
-    for( NSString* src in images)
-        NSLog(@"image src : %@", src);
+    NSString* imageSrc = [images objectAtIndex:0];
+    
+    NSString* object = [self encodeTemplateWithTitle:title content:@"" imageSrc:imageSrc link:@"http://google.com"];
+    [htmlView setString:object];
 }
 
 #pragma -
 #pragma after receive data
-
+static const NSString* template =
+@"<div style=\"position:relative; width:280px; height:70px; margin:0px; padding:0px; background-color:rgba(150,225,255,0.18); outline:1px rgba(150,225,255,1.0) solid\">\n \
+\t<a href=\"%@\" >\n \
+\t\t<div style=\"position:absolute;top:0px;left:0px; width:70px; height:70px; margin:0px; padding:0px; outline:none; border:none;\">\n \
+\t\t\t<img src=\"%@\" style=\"width:70px; height:70px; margin:0px; padding:0px; border: black solid 0px; outline: black solid 0px;\" />\n \
+\t\t</div>\n \
+\t</a>\n \
+\t<div style=\"position:absolute;top:0px;left:70px;right:0px; height:70px; margin:0px; padding:0px; outline:none; border:none;\">\n \
+\t\t<div style=\"position:absolute;top:10%;bottom:55%;right:15px;left:15px; overflow:hidden;\">\n \
+\t\t\t<span style=\"font:15px black sans-serif;\">%@</span>\n \
+\t\t</div>\n \
+\t\t<div style=\"position:absolute;top:60%;bottom:10%;right:15px;left:15px; overflow:hidden;\">\n \
+\t\t\t<span style=\"font:11px black sans-serif;\">%@</span>\n \
+\t\t</div>\n \
+\t</div>\n \
+</div>";
+-(NSString*) encodeTemplateWithTitle:(NSString*)title content:(NSString*)content imageSrc:(NSString*)imgSrc link:(NSString*)href {
+    return [NSString stringWithFormat:template, href, imgSrc, title, content];
+}
 
 #pragma -
 #pragma UI Update
