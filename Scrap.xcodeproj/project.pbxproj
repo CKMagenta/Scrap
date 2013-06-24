@@ -13,6 +13,8 @@
 		8BB1715D1774A82700714B5F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8BB1715B1774A82700714B5F /* Credits.rtf */; };
 		8BB171601774A82700714B5F /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1715F1774A82700714B5F /* CKAppDelegate.m */; };
 		8BB171631774A82700714B5F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BB171611774A82700714B5F /* MainMenu.xib */; };
+		8BB1716B1774AA9600714B5F /* CKMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1716A1774AA9600714B5F /* CKMainViewController.m */; };
+		8BB1716D1774ADB600714B5F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB1716C1774ADB600714B5F /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,9 @@
 		8BB1715E1774A82700714B5F /* CKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
 		8BB1715F1774A82700714B5F /* CKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CKAppDelegate.m; sourceTree = "<group>"; };
 		8BB171621774A82700714B5F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		8BB171691774AA9600714B5F /* CKMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMainViewController.h; sourceTree = "<group>"; };
+		8BB1716A1774AA9600714B5F /* CKMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMainViewController.m; sourceTree = "<group>"; };
+		8BB1716C1774ADB600714B5F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BB1716D1774ADB600714B5F /* WebKit.framework in Frameworks */,
 				8BB1714D1774A82700714B5F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,6 +69,7 @@
 		8BB1714B1774A82700714B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BB1716C1774ADB600714B5F /* WebKit.framework */,
 				8BB1714C1774A82700714B5F /* Cocoa.framework */,
 				8BB1714E1774A82700714B5F /* Other Frameworks */,
 			);
@@ -86,6 +93,8 @@
 				8BB1715F1774A82700714B5F /* CKAppDelegate.m */,
 				8BB171611774A82700714B5F /* MainMenu.xib */,
 				8BB171531774A82700714B5F /* Supporting Files */,
+				8BB171691774AA9600714B5F /* CKMainViewController.h */,
+				8BB1716A1774AA9600714B5F /* CKMainViewController.m */,
 			);
 			path = Scrap;
 			sourceTree = "<group>";
@@ -169,6 +178,7 @@
 			files = (
 				8BB171591774A82700714B5F /* main.m in Sources */,
 				8BB171601774A82700714B5F /* CKAppDelegate.m in Sources */,
+				8BB1716B1774AA9600714B5F /* CKMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +314,7 @@
 				8BB171681774A82700714B5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

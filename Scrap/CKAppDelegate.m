@@ -9,10 +9,16 @@
 #import "CKAppDelegate.h"
 
 @implementation CKAppDelegate
+@synthesize viewController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+//    if(self.viewController == nil) {
+//        self.viewController = [CKMainViewController alloc];
+//    }
+//    
+//    [self.viewController initWithRootView:[[self window] contentView]];
+    [self.viewController initialize];
 }
 
 @end
