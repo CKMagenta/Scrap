@@ -52,38 +52,30 @@
 
 - (void)controlTextDidChange:(NSNotification *)aNotification {
     NSTextField * textField = [aNotification object];
-//    NSLog(@"did : %@", [textField stringValue]);
-//    [clipBoard setString:@"complete" forType:NSStringPboardType];
     NSString* inputText = [textField stringValue];
-    
+
+    NSRegularExpression* protocolRegex = [[NSRegularExpression alloc] initWithPattern:@"(http|https)://" options:0 error:nil] ;
+    NSTextCheckingResult* protocolMatch = [protocolRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
+    NSString* protocol = [inputText substringWithRange:[protocolMatch range]];
+    if( protocol.length == 0) {
+        protocol = @"http://";
+    }
+
     NSRegularExpression* addressRegex = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z\\-\\_]+([\\.]{1}[0-9a-zA-Z\\-\\_]+)+([\\/]{1}([#0-9a-zA-Z\\-\\_\\.]+))*(([\\/]){0,1}|(\\/)[0-9a-zA-Z\\-\\_]+.[0-9a-zA-Z\\-\\_]+)"
                                                                       options:0 error:nil] ;
     NSTextCheckingResult* addressMatch = [addressRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
-    //NSLog(@"url : %@", [inputText substringWithRange:[addressMatch range]]);
     NSString* address = [inputText substringWithRange:[addressMatch range]];
-    
-    
-    NSRegularExpression* protocolRegex = [[NSRegularExpression alloc] initWithPattern:@"(http|https)://"
-                                                                             options:0 error:nil] ;
-    NSTextCheckingResult* protocolMatch = [protocolRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
-    NSString* protocol = [inputText substringWithRange:[protocolMatch range]];
-    
-    //NSLog(@"protocol : %@", [inputText substringWithRange:[protocolMatch range]]);
-    if( /*[inputText substringWithRange:[protocolMatch range]] == nil ||*/  protocol.length == 0) {
-        protocol = @"http://";
-    }
-    
     if( address == nil || address.length == 0 ) {
         [[textField cell] setPlaceholderString:@"Paste valid URL"];
         [textField setStringValue:@""];
         return;
     }
-    
 
     address = [protocol stringByAppendingString:address];
     [clipBoard setString:address forType:NSStringPboardType];
     [textField setStringValue:address];
-    NSLog(address);
+
+    // do with address
 }
 
 @end
