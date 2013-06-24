@@ -8,13 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-@interface CKMainViewController : NSViewController <NSTextFieldDelegate, NSTextDelegate>
+@interface CKMainViewController : NSViewController <NSTextFieldDelegate, NSTextDelegate> {
+    NSString* html;
+    NSPasteboard* clipBoard;
+}
 
 @property (nonatomic, retain) IBOutlet WebView* preView;
 @property (nonatomic, retain) IBOutlet NSTextField* urlView;
 @property (nonatomic, retain) IBOutlet NSTabView* tabView;
 @property (nonatomic, retain) IBOutlet NSTextView* htmlView;
-
+@property (nonatomic, retain) NSString* html;
+@property (nonatomic, retain) NSPasteboard* clipBoard;
 -(void)initialize;
 
 @end
