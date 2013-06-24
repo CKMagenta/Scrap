@@ -14,6 +14,7 @@
 
 - (void) initialize {
     [urlView setDelegate:self];
+    
 }
 
 #pragma -
@@ -29,10 +30,12 @@
     return YES;
 }
 
-- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
-    NSLog(@"command : %@", textView.string);
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)command {
+    NSLog(@"command : %@", fieldEditor.string);
     return NO;
 }
+
+
 
 #pragma -
 #pragma NSControlDelegate
@@ -42,12 +45,27 @@
 }
 
 - (void)controlTextDidChange:(NSNotification *)aNotification {
+    static NSString* lastTextValue = @"";
     NSTextField * textField = [aNotification object];
-    NSLog(@"did : %@", [textField stringValue]);
+
+    NSString* currentTextValue = [textField stringValue];
+    BOOL result = ( abs( currentTextValue.length - lastTextValue.length ) > 2 ) ? YES : NO;
+
+
+    if( result == NO ) {
+        currentTextValue = lastTextValue;
+        [textField setStringValue:currentTextValue];
+        NSLog(@"did + undo : %@", [textField stringValue]);
+        
+    } else {
+        NSLog(@"did : %@", [textField stringValue]);
+    }
+    lastTextValue = currentTextValue;
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)aNotification {
     NSTextField * textField = [aNotification object];
     NSLog(@"end : %@", [textField stringValue]);
 }
+
 @end
