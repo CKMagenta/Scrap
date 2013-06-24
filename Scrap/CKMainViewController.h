@@ -8,9 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-@interface CKMainViewController : NSViewController <NSTextFieldDelegate, NSTextDelegate> {
+@interface CKMainViewController : NSViewController <NSTextFieldDelegate, NSTextDelegate, NSURLConnectionDelegate> {
     NSString* html;
     NSPasteboard* clipBoard;
+    BOOL session;
 }
 
 @property (nonatomic, retain) IBOutlet WebView* preView;

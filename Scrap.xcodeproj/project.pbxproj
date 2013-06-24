@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B561C8E1778220600A88D59 /* CKHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C8D1778220600A88D59 /* CKHTMLParser.m */; };
+		8B561C971778250C00A88D59 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B561C961778250C00A88D59 /* libxml2.dylib */; };
+		8B561C981778264A00A88D59 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C921778230000A88D59 /* HTMLNode.m */; };
+		8B561C991778264A00A88D59 /* HTMLNode_FindChildren.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C931778230000A88D59 /* HTMLNode_FindChildren.m */; };
+		8B561C9A1778264A00A88D59 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C951778230000A88D59 /* HTMLParser.m */; };
 		8BB1714D1774A82700714B5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB1714C1774A82700714B5F /* Cocoa.framework */; };
 		8BB171571774A82700714B5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8BB171551774A82700714B5F /* InfoPlist.strings */; };
 		8BB171591774A82700714B5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB171581774A82700714B5F /* main.m */; };
@@ -18,6 +23,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B561C8C1778220600A88D59 /* CKHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKHTMLParser.h; sourceTree = "<group>"; };
+		8B561C8D1778220600A88D59 /* CKHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKHTMLParser.m; sourceTree = "<group>"; };
+		8B561C901778230000A88D59 /* HTMLNode+FindChildren.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HTMLNode+FindChildren.h"; sourceTree = "<group>"; };
+		8B561C911778230000A88D59 /* HTMLNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLNode.h; sourceTree = "<group>"; };
+		8B561C921778230000A88D59 /* HTMLNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLNode.m; sourceTree = "<group>"; };
+		8B561C931778230000A88D59 /* HTMLNode_FindChildren.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLNode_FindChildren.m; sourceTree = "<group>"; };
+		8B561C941778230000A88D59 /* HTMLParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		8B561C951778230000A88D59 /* HTMLParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
+		8B561C961778250C00A88D59 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8BB171491774A82700714B5F /* Scrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1714C1774A82700714B5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8BB1714F1774A82700714B5F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -41,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B561C971778250C00A88D59 /* libxml2.dylib in Frameworks */,
 				8BB1716D1774ADB600714B5F /* WebKit.framework in Frameworks */,
 				8BB1714D1774A82700714B5F /* Cocoa.framework in Frameworks */,
 			);
@@ -49,6 +64,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B561C8F177822F000A88D59 /* HTMLParser */ = {
+			isa = PBXGroup;
+			children = (
+				8B561C901778230000A88D59 /* HTMLNode+FindChildren.h */,
+				8B561C911778230000A88D59 /* HTMLNode.h */,
+				8B561C921778230000A88D59 /* HTMLNode.m */,
+				8B561C931778230000A88D59 /* HTMLNode_FindChildren.m */,
+				8B561C941778230000A88D59 /* HTMLParser.h */,
+				8B561C951778230000A88D59 /* HTMLParser.m */,
+			);
+			name = HTMLParser;
+			sourceTree = "<group>";
+		};
 		8BB171401774A82700714B5F = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +97,7 @@
 		8BB1714B1774A82700714B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8B561C961778250C00A88D59 /* libxml2.dylib */,
 				8BB1716C1774ADB600714B5F /* WebKit.framework */,
 				8BB1714C1774A82700714B5F /* Cocoa.framework */,
 				8BB1714E1774A82700714B5F /* Other Frameworks */,
@@ -89,12 +118,15 @@
 		8BB171521774A82700714B5F /* Scrap */ = {
 			isa = PBXGroup;
 			children = (
+				8B561C8F177822F000A88D59 /* HTMLParser */,
 				8BB1715E1774A82700714B5F /* CKAppDelegate.h */,
 				8BB1715F1774A82700714B5F /* CKAppDelegate.m */,
 				8BB171611774A82700714B5F /* MainMenu.xib */,
 				8BB171531774A82700714B5F /* Supporting Files */,
 				8BB171691774AA9600714B5F /* CKMainViewController.h */,
 				8BB1716A1774AA9600714B5F /* CKMainViewController.m */,
+				8B561C8C1778220600A88D59 /* CKHTMLParser.h */,
+				8B561C8D1778220600A88D59 /* CKHTMLParser.m */,
 			);
 			path = Scrap;
 			sourceTree = "<group>";
@@ -176,9 +208,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B561C981778264A00A88D59 /* HTMLNode.m in Sources */,
+				8B561C991778264A00A88D59 /* HTMLNode_FindChildren.m in Sources */,
+				8B561C9A1778264A00A88D59 /* HTMLParser.m in Sources */,
 				8BB171591774A82700714B5F /* main.m in Sources */,
 				8BB171601774A82700714B5F /* CKAppDelegate.m in Sources */,
 				8BB1716B1774AA9600714B5F /* CKMainViewController.m in Sources */,
+				8B561C8E1778220600A88D59 /* CKHTMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +275,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -266,7 +304,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = macosx;
 			};
 			name = Release;
