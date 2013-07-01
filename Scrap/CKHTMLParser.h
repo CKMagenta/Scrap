@@ -18,6 +18,7 @@
 
 +(id) parserWithURL:(NSURL*)url andContent:(NSString*)content;
 -(NSString*)parseTitle;
+-(NSString*)parseContent;
 -(NSArray*)parseImageURLStrings;
 
 @property (nonatomic, retain) NSString* content;

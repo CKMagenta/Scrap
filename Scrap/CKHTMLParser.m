@@ -8,6 +8,7 @@
 
 #import "CKHTMLParser.h"
 #import "HTMLNode+FindChildren.h"
+#import "NSString+Trim.h"
 
 static CKHTMLParser* _sharedParser;
 
@@ -39,6 +40,23 @@ static CKHTMLParser* _sharedParser;
     HTMLNode* headNode = [parser head];
     HTMLNode* titleNode = [headNode findChildTag:@"title"];
     return [titleNode text];
+}
+
+-(NSString*)parseContent {
+    HTMLNode* bodyNode = [parser body];
+    NSArray* ps = [bodyNode findChildTags:@"p"];
+    NSString* contentString = @"";
+    
+    
+    if([ps count]>0) {
+        for( int i=0; i < [ps count]; i++) {
+            contentString = [[[ps objectAtIndex:i] text] trim];
+            if( [contentString length] > 0)
+                break;
+        }
+    }
+    
+    return contentString;
 }
 
 -(NSArray*)parseImageURLStrings{

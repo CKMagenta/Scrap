@@ -8,17 +8,58 @@
 
 #import "CKMainViewController.h"
 #import "CKHTMLParser.h"
+#import "CKScrapObject.h"
 
 @implementation CKMainViewController
 @synthesize urlView, tabView, preView, htmlView;
 @synthesize html, clipBoard;
-
+@synthesize messageLabel;
+@synthesize window;
 - (void) initialize {
-    [urlView setDelegate:self];
+    if(urlView != nil)
+        [urlView setDelegate:self];
     clipBoard = [NSPasteboard generalPasteboard];
 //    [clipBoard declareTypes:@[NSStringPboardType] owner:self];
+    NSString* message = [NSString stringWithFormat:@"URL 복사해와."];
+    [[messageLabel cell] setStringValue:message];
+    [window miniaturize:self];
+    
 }
 
+
+-(NSString*) process :(NSString*)inputText {
+    if(inputText == nil)
+        return nil;
+    NSRegularExpression* protocolRegex = [[NSRegularExpression alloc] initWithPattern:@"(http|https)://" options:0 error:nil] ;
+    NSTextCheckingResult* protocolMatch = [protocolRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
+    NSString* protocol = [inputText substringWithRange:[protocolMatch range]];
+    if( protocol.length == 0) {
+        protocol = @"http://";
+    }
+    
+    NSRegularExpression* addressRegex = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z\\-\\_]+([\\.]{1}[0-9a-zA-Z\\-\\_]+)+([\\/]{1}([#0-9a-zA-Z\\-\\_\\.]+))*(([\\/]){0,1}|(\\/)[0-9a-zA-Z\\-\\_]+.[0-9a-zA-Z\\-\\_]+)"
+                                                                             options:0 error:nil] ;
+    NSTextCheckingResult* addressMatch = [addressRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
+    NSString* address = [inputText substringWithRange:[addressMatch range]];
+    if( address == nil || address.length == 0 ) {
+        return nil;
+    }
+    
+    address = [protocol stringByAppendingString:address];
+    [clipBoard setString:address forType:NSStringPboardType];
+    
+    // do with address
+    if(session == false) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:address]];
+        [request setHTTPMethod:@"GET"];
+        //        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        NSURLConnection* conn = [NSURLConnection connectionWithRequest:request delegate:self];
+        //        if( !conn )
+        //            AudioServicesPlayAlertSound(kSystemSoundID_UserPreferredAlert);
+    }
+    
+    return address;
+}
 #pragma -
 #pragma NSTextFieldDelegate
 - (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
@@ -54,36 +95,14 @@
     NSTextField * textField = [aNotification object];
     NSString* inputText = [textField stringValue];
 
-    NSRegularExpression* protocolRegex = [[NSRegularExpression alloc] initWithPattern:@"(http|https)://" options:0 error:nil] ;
-    NSTextCheckingResult* protocolMatch = [protocolRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
-    NSString* protocol = [inputText substringWithRange:[protocolMatch range]];
-    if( protocol.length == 0) {
-        protocol = @"http://";
-    }
+    NSString* address = [self process:inputText];
 
-    NSRegularExpression* addressRegex = [[NSRegularExpression alloc] initWithPattern:@"[0-9a-zA-Z\\-\\_]+([\\.]{1}[0-9a-zA-Z\\-\\_]+)+([\\/]{1}([#0-9a-zA-Z\\-\\_\\.]+))*(([\\/]){0,1}|(\\/)[0-9a-zA-Z\\-\\_]+.[0-9a-zA-Z\\-\\_]+)"
-                                                                      options:0 error:nil] ;
-    NSTextCheckingResult* addressMatch = [addressRegex firstMatchInString:inputText options:0 range:NSMakeRange(0, inputText.length)];
-    NSString* address = [inputText substringWithRange:[addressMatch range]];
     if( address == nil || address.length == 0 ) {
         [[textField cell] setPlaceholderString:@"Paste valid URL"];
         [textField setStringValue:@""];
         return;
     }
-
-    address = [protocol stringByAppendingString:address];
-    [clipBoard setString:address forType:NSStringPboardType];
     [textField setStringValue:address];
-
-    // do with address
-    if(session == false) {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:address]];
-        [request setHTTPMethod:@"GET"];
-//        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        NSURLConnection* conn = [NSURLConnection connectionWithRequest:request delegate:self];
-//        if( !conn )
-//            AudioServicesPlayAlertSound(kSystemSoundID_UserPreferredAlert);
-    }
 }
 
 
@@ -131,35 +150,65 @@
         title = [ NSString stringWithFormat:@"%@%@%@", @"http://", [url host], [url path] ];
     }
     
-    NSArray* images = [parser parseImageURLStrings];
-    NSString* imageSrc = [images objectAtIndex:0];
+    NSString* content = [parser parseContent];
     
-    NSString* object = [self encodeTemplateWithTitle:title content:@"" imageSrc:imageSrc link:@"http://google.com"];
-    [htmlView setString:object];
+    NSArray* images = [parser parseImageURLStrings];
+    NSString* imageSrc = nil;
+    if([images count] > 0)
+        imageSrc = [images objectAtIndex:0];
+    
+    CKScrapObject* object = [[CKScrapObject alloc] init];
+    object.title = title;
+    object.link = url;
+    object.imgSrc = imageSrc;
+    object.content = content;
+    
+    NSString* htmlObject = [object toHTML];
+    
+    if(htmlView != nil)
+        [htmlView setString:htmlObject];
+    if(preView != nil)
+        [[preView mainFrame] loadHTMLString:htmlObject baseURL:[NSURL URLWithString:@""]];
+    
+    [clipBoard clearContents];
+    
+    NSPasteboardItem *itemHTML = [[NSPasteboardItem alloc] init];
+    [itemHTML setData:[htmlObject dataUsingEncoding:NSUTF8StringEncoding]
+              forType:NSPasteboardTypeHTML];
+
+//    NSPasteboardItem *itemText = [[NSPasteboardItem alloc] init];
+//    [itemText setData:[[object toText] dataUsingEncoding:NSUTF8StringEncoding]
+//              forType:NSPasteboardTypeString];
+
+    [clipBoard writeObjects:[NSArray arrayWithObjects:itemHTML, /*itemText,*/ nil]];
+
+    NSString* urlString = [url absoluteString];
+    NSString* message = [NSString stringWithFormat:@"복사되었습니다.\nURL : %@", [urlString substringToIndex:MIN([urlString length] ,20)]];
+    [[messageLabel cell] setStringValue:message];
+    [window miniaturize:self];
+    
 }
 
 #pragma -
 #pragma after receive data
-static const NSString* template =
-@"<div style=\"position:relative; width:280px; height:70px; margin:0px; padding:0px; background-color:rgba(150,225,255,0.18); outline:1px rgba(150,225,255,1.0) solid\">\n \
-\t<a href=\"%@\" >\n \
-\t\t<div style=\"position:absolute;top:0px;left:0px; width:70px; height:70px; margin:0px; padding:0px; outline:none; border:none;\">\n \
-\t\t\t<img src=\"%@\" style=\"width:70px; height:70px; margin:0px; padding:0px; border: black solid 0px; outline: black solid 0px;\" />\n \
-\t\t</div>\n \
-\t</a>\n \
-\t<div style=\"position:absolute;top:0px;left:70px;right:0px; height:70px; margin:0px; padding:0px; outline:none; border:none;\">\n \
-\t\t<div style=\"position:absolute;top:10%;bottom:55%;right:15px;left:15px; overflow:hidden;\">\n \
-\t\t\t<span style=\"font:15px black sans-serif;\">%@</span>\n \
-\t\t</div>\n \
-\t\t<div style=\"position:absolute;top:60%;bottom:10%;right:15px;left:15px; overflow:hidden;\">\n \
-\t\t\t<span style=\"font:11px black sans-serif;\">%@</span>\n \
-\t\t</div>\n \
-\t</div>\n \
-</div>";
--(NSString*) encodeTemplateWithTitle:(NSString*)title content:(NSString*)content imageSrc:(NSString*)imgSrc link:(NSString*)href {
-    return [NSString stringWithFormat:template, href, imgSrc, title, content];
-}
 
 #pragma -
 #pragma UI Update
+
+#pragma -
+#pragma NSWIndow Delegate
+-(void)windowDidBecomeKey:(NSNotification *)notification   {
+    if(messageLabel == nil)
+        return;
+    
+    NSString* inputText = [clipBoard stringForType:NSPasteboardTypeString];
+    NSString* address = [self process:inputText];
+    
+    if(address == nil || [address length] == 0) {
+        [[messageLabel cell] setStringValue:@"올바르지 않은 URL 양식입니다. 똑바로 쓰라고"];
+    } else {
+        NSString* message = [NSString stringWithFormat:@"처리중임."];
+        [[messageLabel cell] setStringValue:message];
+    }
+}
 @end

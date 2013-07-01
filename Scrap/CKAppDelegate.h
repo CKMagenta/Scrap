@@ -10,6 +10,6 @@
 #import "CKMainViewController.h"
 @interface CKAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
+//@property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, retain) IBOutlet CKMainViewController* viewController;
 @end

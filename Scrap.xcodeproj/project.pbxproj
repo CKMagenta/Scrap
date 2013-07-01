@@ -13,6 +13,9 @@
 		8B561C991778264A00A88D59 /* HTMLNode_FindChildren.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C931778230000A88D59 /* HTMLNode_FindChildren.m */; };
 		8B561C9A1778264A00A88D59 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B561C951778230000A88D59 /* HTMLParser.m */; };
 		8B561C9C17788C9400A88D59 /* box.html in Resources */ = {isa = PBXBuildFile; fileRef = 8B561C9B17788C9400A88D59 /* box.html */; };
+		8B982D5D17810AFD003A8988 /* CKScrapObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B982D5C17810AFD003A8988 /* CKScrapObject.m */; };
+		8B982D65178142F6003A8988 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B982D64178142F6003A8988 /* NSString+Trim.m */; };
+		8B982D721781777E003A8988 /* Scrap.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 8B982D711781777E003A8988 /* Scrap.iconset */; };
 		8BB1714D1774A82700714B5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB1714C1774A82700714B5F /* Cocoa.framework */; };
 		8BB171571774A82700714B5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8BB171551774A82700714B5F /* InfoPlist.strings */; };
 		8BB171591774A82700714B5F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB171581774A82700714B5F /* main.m */; };
@@ -34,6 +37,11 @@
 		8B561C951778230000A88D59 /* HTMLParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLParser.m; sourceTree = "<group>"; };
 		8B561C961778250C00A88D59 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8B561C9B17788C9400A88D59 /* box.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = box.html; sourceTree = "<group>"; };
+		8B982D5B17810AFD003A8988 /* CKScrapObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKScrapObject.h; sourceTree = "<group>"; };
+		8B982D5C17810AFD003A8988 /* CKScrapObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKScrapObject.m; sourceTree = "<group>"; };
+		8B982D63178142F6003A8988 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
+		8B982D64178142F6003A8988 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
+		8B982D711781777E003A8988 /* Scrap.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = Scrap.iconset; sourceTree = "<group>"; };
 		8BB171491774A82700714B5F /* Scrap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scrap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BB1714C1774A82700714B5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8BB1714F1774A82700714B5F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -79,9 +87,28 @@
 			name = HTMLParser;
 			sourceTree = "<group>";
 		};
+		8B982D5E17810B09003A8988 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8B982D5B17810AFD003A8988 /* CKScrapObject.h */,
+				8B982D5C17810AFD003A8988 /* CKScrapObject.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8B982D5F1781429C003A8988 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8B982D63178142F6003A8988 /* NSString+Trim.h */,
+				8B982D64178142F6003A8988 /* NSString+Trim.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		8BB171401774A82700714B5F = {
 			isa = PBXGroup;
 			children = (
+				8B982D711781777E003A8988 /* Scrap.iconset */,
 				8BB171521774A82700714B5F /* Scrap */,
 				8BB1714B1774A82700714B5F /* Frameworks */,
 				8BB1714A1774A82700714B5F /* Products */,
@@ -120,6 +147,8 @@
 		8BB171521774A82700714B5F /* Scrap */ = {
 			isa = PBXGroup;
 			children = (
+				8B982D5F1781429C003A8988 /* Category */,
+				8B982D5E17810B09003A8988 /* Model */,
 				8B561C9B17788C9400A88D59 /* box.html */,
 				8B561C8F177822F000A88D59 /* HTMLParser */,
 				8BB1715E1774A82700714B5F /* CKAppDelegate.h */,
@@ -202,6 +231,7 @@
 				8BB1715D1774A82700714B5F /* Credits.rtf in Resources */,
 				8BB171631774A82700714B5F /* MainMenu.xib in Resources */,
 				8B561C9C17788C9400A88D59 /* box.html in Resources */,
+				8B982D721781777E003A8988 /* Scrap.iconset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +249,8 @@
 				8BB171601774A82700714B5F /* CKAppDelegate.m in Sources */,
 				8BB1716B1774AA9600714B5F /* CKMainViewController.m in Sources */,
 				8B561C8E1778220600A88D59 /* CKHTMLParser.m in Sources */,
+				8B982D5D17810AFD003A8988 /* CKScrapObject.m in Sources */,
+				8B982D65178142F6003A8988 /* NSString+Trim.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +354,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scrap/Scrap-Prefix.pch";
 				INFOPLIST_FILE = "Scrap/Scrap-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -334,6 +367,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scrap/Scrap-Prefix.pch";
 				INFOPLIST_FILE = "Scrap/Scrap-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
